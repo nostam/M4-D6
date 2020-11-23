@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { Row, Container, Spinner } from "react-bootstrap";
-import "../styles/MovieRow.css";
+import { Row, Container, Spinner, Alert } from "react-bootstrap";
+
 import SortIcon from "@material-ui/icons/Sort";
 // import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
+import "../styles/MovieRow.css";
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -31,6 +33,7 @@ export default class MoviesRow extends Component {
     movies: [],
     sorted: true,
     loading: true,
+    imgLoading: true,
   };
 
   componentDidMount = async () => {
@@ -57,7 +60,7 @@ export default class MoviesRow extends Component {
       if (res.ok) {
         let data = await res.json();
         this.setState({ movies: data.Search, loading: false });
-        // setTimeout(() => this.setState({ loading: false }), 1000);
+        setTimeout(() => this.setState({ imgLoading: false }), 2000);
       }
     } catch (e) {
       this.setState({ loading: false });
@@ -76,8 +79,8 @@ export default class MoviesRow extends Component {
     return (
       <>
         {!this.state.loading ? (
-          <Container style={{ width: "98vw" }} className="mb-4" fluid>
-            <Row className="d-flex align-items-center justify-content-between">
+          <Container style={{ width: "100vw" }} className="mb-4 px-0" fluid>
+            <Row className="d-flex align-items-center justify-content-between pl-5">
               <h3 className="movieRowTitle text-capitalize text-white my-3">
                 {this.props.query}
               </h3>
@@ -103,50 +106,50 @@ export default class MoviesRow extends Component {
                   </div>
                 ))}
               </Slider> */}
-            {movies ? (
-              <Carousel
-                swipeable={false}
-                draggable={false}
-                showDots={false}
-                responsive={responsive}
-                ssr={false} // means to render carousel on server-side.
-                infinite={true}
-                autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                autoPlaySpeed={5000}
-                keyBoardControl={true}
-                customTransition="all .5"
-                transitionDuration={500}
-                containerClass="carousel-container"
-                removeArrowOnDeviceType={["tablet", "mobile"]}
-                deviceType={this.props.deviceType}
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
-              >
-                {movies.map((movie) => (
-                  <div className="movieRowImg" key={movie.imdbID}>
-                    <a onClick={() => this.props.handleOpenModal(movie.imdbID)}>
-                      <img
-                        className="img-fluid"
-                        src={movie.Poster}
-                        alt="movie-poster"
-                      />
-                    </a>
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading Posters...</span>
-              </Spinner>
-            )}
+
+            <Carousel
+              swipeable={false}
+              draggable={false}
+              showDots={false}
+              responsive={responsive}
+              ssr={false} // means to render carousel on server-side.
+              infinite={true}
+              autoPlay={this.props.deviceType !== "mobile" ? true : false}
+              autoPlaySpeed={5000}
+              keyBoardControl={true}
+              customTransition="all .5"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              deviceType={this.props.deviceType}
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              {movies.map((movie) => (
+                <div
+                  className="movieRowImg"
+                  key={movie.imdbID}
+                  onClick={() => this.props.handleOpenModal(movie.imdbID)}
+                >
+                  <img
+                    className="img-fluid"
+                    src={movie.Poster}
+                    alt="movie-poster"
+                  />
+                </div>
+              ))}
+            </Carousel>
           </Container>
         ) : (
-          <>
-            <h1 className="text-white">Loading {this.props.query} Movies</h1>
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
+          <Alert
+            variant="warning"
+            className="d-flex text-center justify-content-center"
+          >
+            <h4>Loading {this.props.query} Movies</h4>
+            <Spinner animation="border" role="status" variant="warning">
+              <span className="sr-only">Loading Posters...</span>
             </Spinner>
-          </>
+          </Alert>
         )}
       </>
     );

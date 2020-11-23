@@ -11,3 +11,16 @@
 .movieRowImg:hover {
   visibility: visible;
 }
+.react-multiple-carousel__arrow {
+  position: absolute;
+  top: 0;
+  transform: translateY(75px);
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  z-index: 10 !important;
+}
+.react-multiple-carousel__arrow--left {
+  left: -1rem !important;
+}
+.react-multiple-carousel__arrow--right {
+  right: -1rem !important;
+}
