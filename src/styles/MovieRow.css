@@ -11,7 +11,7 @@
 .movieRowImg:hover {
   visibility: visible;
 }
-.react-multiple-carousel__arrow {
+/* .react-multiple-carousel__arrow {
   position: absolute;
   top: 0;
   transform: translateY(75px);
@@ -19,8 +19,11 @@
   z-index: 10 !important;
 }
 .react-multiple-carousel__arrow--left {
-  left: -1rem !important;
+  left: -0.5rem !important;
 }
 .react-multiple-carousel__arrow--right {
-  right: -1rem !important;
+  right: -0.5rem !important;
+} */
+.slick-slider .slick-slide {
+  padding: 0 8px;
 }

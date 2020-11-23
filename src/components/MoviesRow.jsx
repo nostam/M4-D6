@@ -2,31 +2,34 @@ import React, { Component } from "react";
 import { Row, Container, Spinner, Alert } from "react-bootstrap";
 
 import SortIcon from "@material-ui/icons/Sort";
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import "../styles/MovieRow.css";
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 8,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1100 },
-    items: 5,
-  },
-  tablet: {
-    breakpoint: { max: 1100, min: 650 },
-    items: 3,
-  },
-  mobile: {
-    breakpoint: { max: 650, min: 300 },
-    items: 2,
-  },
+
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  swipeToSlide: true,
+  lazyLoad: true,
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 992,
+      settings: { slidesToShow: 4, slidesToScroll: 4 },
+    },
+    { breakpoint: 1100, settings: "unslicks" },
+  ],
 };
 export default class MoviesRow extends Component {
   state = {
@@ -68,20 +71,13 @@ export default class MoviesRow extends Component {
     }
   };
   render() {
-    // const settings = {
-    //   dots: false,
-    //   infinite: true,
-    //   speed: 500,
-    //   slidesToShow: 6,
-    //   slidesToScroll: 6,
-    // };
     let { movies } = this.state;
     return (
       <>
         {!this.state.loading ? (
           <Container
-            style={{ width: "100vw" }}
-            className="mb-4 px-0"
+            style={{ width: "90vw" }}
+            className="mb-4"
             fluid
             style={{ overflowX: "hidden" }}
           >
@@ -94,25 +90,24 @@ export default class MoviesRow extends Component {
                 style={{ color: "white", cursor: "pointer" }}
               />
             </Row>
-            {/* {movies ? (
-              <Slider {...settings}>
-                {movies.map((movie) => (
-                  <div className="movieRowImg" key={movie.imdbID}>
-                    <a
-                      href="#"
-                      onClick={() => this.props.handleOpenModal(movie.imdbID)}
-                    >
-                      <img
-                        className="img-fluid"
-                        src={movie.Poster}
-                        alt="movie-poster"
-                      />
-                    </a>
-                  </div>
-                ))}
-              </Slider> */}
 
-            <Carousel
+            <Slider {...settings}>
+              {movies.map((movie) => (
+                <div
+                  className="movieRowImg"
+                  key={movie.imdbID}
+                  onClick={() => this.props.handleOpenModal(movie.imdbID)}
+                >
+                  <img
+                    className="img-fluid"
+                    src={movie.Poster}
+                    alt="movie-poster"
+                  />
+                </div>
+              ))}
+            </Slider>
+
+            {/* <Carousel
               swipeable={false}
               draggable={false}
               showDots={false}
@@ -143,7 +138,7 @@ export default class MoviesRow extends Component {
                   />
                 </div>
               ))}
-            </Carousel>
+            </Carousel> */}
           </Container>
         ) : (
           <Alert
