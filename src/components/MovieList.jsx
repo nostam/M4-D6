@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
-import ModalMovie from './ModalMovie'
-import MoviesRow from './MoviesRow'
-import CommentArea from './CommentArea.jsx';
+import React, { Component } from "react";
+import { Button } from "react-bootstrap";
+import ModalMovie from "./ModalMovie";
+import MoviesRow from "./MoviesRow";
+import CommentArea from "./CommentArea.jsx";
 
 export default class MovieList extends Component {
   state = {
@@ -10,29 +10,25 @@ export default class MovieList extends Component {
     currentMovie: [],
   };
   componentDidMount = (movie) => {};
-    handleOpenModal = async (movieId) => {
+  handleOpenModal = async (movieId) => {
     this.setState({ show: true, currentMovie: movieId });
-    };
-    
-    handleCloseModal = () => {  
-    this.setState({ show: false, currentMovie:"" });
-    };
-    
+  };
 
-
+  handleCloseModal = () => {
+    this.setState({ show: false, currentMovie: "" });
+  };
 
   render() {
     let { show, currentMovie } = this.state;
     return (
       <div>
         <MoviesRow handleOpenModal={this.handleOpenModal} query={"Batman"} />
-        <MoviesRow handleOpenModal={this.handleOpenModal} query={"Life"} />
-        <MoviesRow handleOpenModal={this.handleOpenModal} query={"Harry"} />
-    
-          <ModalMovie
-            handleClose={this.handleCloseModal}
-            show={show}
-            currentMovie={[...currentMovie]}
+        {/* <MoviesRow handleOpenModal={this.handleOpenModal} query={"Life"} />
+        <MoviesRow handleOpenModal={this.handleOpenModal} query={"Harry"} /> */}
+        <ModalMovie
+          handleClose={this.handleCloseModal}
+          show={show}
+          currentMovie={[...currentMovie]}
         ></ModalMovie>
       </div>
     );

@@ -1,10 +1,11 @@
 .movieRowImg {
   width: 300px;
   height: 200px;
-  align-items: center;
 }
 .movieRowImg img {
-  box-shadow: 4px 4px 8px black;
+  width: 100%;
+  height: 100%;
+  box-shadow: 4px 4px 4px black;
   object-fit: cover;
 }
 .movieRowImg:hover {
