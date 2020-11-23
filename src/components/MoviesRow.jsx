@@ -79,8 +79,13 @@ export default class MoviesRow extends Component {
     return (
       <>
         {!this.state.loading ? (
-          <Container style={{ width: "100vw" }} className="mb-4 px-0" fluid>
-            <Row className="d-flex align-items-center justify-content-between pl-5">
+          <Container
+            style={{ width: "100vw" }}
+            className="mb-4 px-0"
+            fluid
+            style={{ overflowX: "hidden" }}
+          >
+            <Row className="d-flex align-items-center justify-content-between px-5">
               <h3 className="movieRowTitle text-capitalize text-white my-3">
                 {this.props.query}
               </h3>
