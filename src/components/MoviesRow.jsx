@@ -57,7 +57,7 @@ export default class MoviesRow extends Component {
       <>
         {!this.state.loading ? (
           <Container style={{ width: "98vw" }} className="mb-4" fluid>
-            <Row>
+            <Row className="d-flex align-items-center justify-content-between">
               <h3 className="movieRowTitle text-capitalize text-white my-3">
                 {this.props.query}
               </h3>
@@ -70,7 +70,10 @@ export default class MoviesRow extends Component {
               <Slider {...settings}>
                 {movies.map((movie) => (
                   <div className="movieRowImg" key={movie.imdbID}>
-                    <a onClick={() => this.props.handleOpenModal(movie.imdbID)}>
+                    <a
+                      href="#"
+                      onClick={() => this.props.handleOpenModal(movie.imdbID)}
+                    >
                       <img
                         className="img-fluid"
                         src={movie.Poster}

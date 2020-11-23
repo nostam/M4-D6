@@ -48,7 +48,7 @@ const NavBar = () => {
             </Nav.Link>
             <NavDropdown
               title="User"
-              menuAlign="right"
+              // menuAlign="right"
               id="dropdown-menu-align-right"
               className="nav"
               style={{ color: "gray !important" }}

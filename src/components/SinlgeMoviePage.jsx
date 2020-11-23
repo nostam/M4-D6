@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import { Container, Row, Col, Button, FormControl } from "react-bootstrap";
 import "../styles/SingleMoviePage.css";
 import { withRouter } from "react-router-dom";
@@ -6,10 +6,13 @@ import StarIcon from "@material-ui/icons/Star";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import AddCommentIcon from "@material-ui/icons/AddComment";
+import AddComment from "./AddComment";
+import CommentsList from "./CommentsList";
 
 class SinlgeMoviePage extends Component {
   state = {
     currentMovie: {},
+    updateComments: "false",
   };
   componentDidMount = async () => {
     try {
@@ -34,6 +37,9 @@ class SinlgeMoviePage extends Component {
     } catch (e) {
       console.log(e);
     }
+  };
+  updateComments = (param) => {
+    this.setState({ updateComments: param });
   };
   render() {
     let { currentMovie } = this.state;
@@ -73,7 +79,10 @@ class SinlgeMoviePage extends Component {
                       className="mr-3 ml-3"
                       style={{ fontSize: "2em" }}
                     />
-                    <PlaylistAddIcon className="mr-3" style={{ fontSize: "2em" }} />
+                    <PlaylistAddIcon
+                      className="mr-3"
+                      style={{ fontSize: "2em" }}
+                    />
                     <AddCommentIcon style={{ fontSize: "2em" }} />
                   </div>
                 </Row>
@@ -113,6 +122,18 @@ class SinlgeMoviePage extends Component {
             </Row>
           </Col>
         </Row>
+        <Row>
+          <CommentsList
+            movieId={currentMovie.imdbID}
+            updateComState={this.state.updateComments}
+            updateComments={this.updateComments}
+          />
+          <AddComment
+            img={currentMovie.Poster}
+            movieId={currentMovie.imdbID}
+            updateComments={this.updateComments}
+          />
+        </Row>
         {/* <Row>
           <div className="d-flex align-items-center mr-3 nav__search my-4">
             <FormControl
@@ -134,7 +155,6 @@ class SinlgeMoviePage extends Component {
             handleDeleteComment={this.handleDeleteComment}
           />
         ))}
-
         <Row className="w-100">
           <CommentForm
             handleSubmit={this.handleSubmit}
@@ -147,4 +167,4 @@ class SinlgeMoviePage extends Component {
     );
   }
 }
-export default withRouter(SinlgeMoviePage)
+export default withRouter(SinlgeMoviePage);

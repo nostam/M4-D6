@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Container, Button, Form, FormControl } from "react-bootstrap";
 import ModalMovie from "./ModalMovie";
 import MoviesRow from "./MoviesRow";
-import CommentArea from "./CommentArea.jsx";
 
 export default class MovieList extends Component {
   state = {
@@ -18,12 +17,12 @@ export default class MovieList extends Component {
   };
   handleSearch = (e) => {
     e.preventDefault();
-    console.log(e.curretTarget.value);
-    this.setState({ showSearch: true });
+    console.log(this.state.searchQuery);
+    // this.setState({ searchQuery: e.target.value });
   };
   // ComponentDidUpdate = (prevState) => {
   //   if (prevState.searchQuery !== this.state.searchQuery) {
-  //     this.setState({ showSearch: });
+  //     this.setState({ showSearch: true});
   //   }
   // };
   handleCloseModal = () => {
@@ -36,10 +35,19 @@ export default class MovieList extends Component {
       <div>
         <Container className="d-flex justify-content-end" fluid>
           <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <FormControl
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2"
+              onKeyUp={(e) => {
+                this.setState({ searchQuery: e.target.value });
+              }}
+            />
             <Button
               variant="outline-secondary"
-              onClick={(e) => this.handleSearch}
+              onClick={(e) => {
+                this.handleSearch(e);
+              }}
             >
               Search
             </Button>
