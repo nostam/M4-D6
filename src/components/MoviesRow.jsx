@@ -15,7 +15,7 @@ export default class MoviesRow extends Component {
 
   componentDidMount = async () => {
     this.fetchMovies(this.props.query);
-    console.log(this.state.movies);
+    // console.log(this.state.movies);
   };
 
   sortByYear = () => {
@@ -36,7 +36,8 @@ export default class MoviesRow extends Component {
       });
       if (res.ok) {
         let data = await res.json();
-        this.setState({ movies: data.Search, loading: false });
+        this.setState({ movies: data.Search });
+        setTimeout(() => this.setState({ loading: false }), 1000);
       }
     } catch (e) {
       this.setState({ loading: false });
@@ -60,11 +61,15 @@ export default class MoviesRow extends Component {
               <h3 className="movieRowTitle text-capitalize text-white my-3">
                 {this.props.query}
               </h3>
+              <SortIcon
+                onClick={() => this.sortByYear()}
+                style={{ color: "white", cursor: "pointer" }}
+              />
             </Row>
             {movies ? (
               <Slider {...settings}>
                 {movies.map((movie) => (
-                  <div className="movieRowImg">
+                  <div className="movieRowImg" key={movie.imdbID}>
                     <a onClick={() => this.props.handleOpenModal(movie.imdbID)}>
                       <img
                         className="img-fluid"
@@ -77,15 +82,13 @@ export default class MoviesRow extends Component {
               </Slider>
             ) : (
               <Spinner animation="border" role="status">
-                <span>Loading Posters...</span>
+                <span className="sr-only">Loading Posters...</span>
               </Spinner>
             )}
           </Container>
         ) : (
           <>
-            <h1 className="text-white">
-              Loading {this.props.query}Movie for you
-            </h1>
+            <h1 className="text-white">Loading {this.props.query} Movies</h1>
             <Spinner animation="border" role="status">
               <span className="sr-only">Loading...</span>
             </Spinner>
