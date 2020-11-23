@@ -1,19 +1,12 @@
-.card {
-  border: 0px;
-  padding: 0;
-  overflow: hidden;
+.movieRowImg {
+  width: 300px;
+  height: 200px;
+  align-items: center;
+}
+.movieRowImg img {
   box-shadow: 4px 4px 8px black;
-  height: 330px;
+  object-fit: cover;
 }
-.card-body {
-  translate: 0 -120px;
-  height: 0px;
-}
-.card-title,
-.card-body {
-  visibility: hidden;
-}
-.card:hover .card-title {
-  background-color: rgba(255, 255, 255, 0.75);
+.movieRowImg:hover {
   visibility: visible;
 }
