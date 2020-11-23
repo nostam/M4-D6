@@ -33,11 +33,12 @@
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
+  z-index: 1;
 }
 .slick-slider .slick-prev {
-  transform: translateX(4px);
+  transform: translate(4px, -1rem);
 }
 
 .slick-slider .slick-next {
-  transform: translateX(-4px);
+  transform: translate(-4px, -1rem);
 }
